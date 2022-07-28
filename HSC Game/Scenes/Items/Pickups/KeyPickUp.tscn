@@ -1,0 +1,141 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Resources/Fonts/font3.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scenes/Items/Item.gd" type="Script" id=2]
+[ext_resource path="res://Resources/Shaders/MainTheme.tres" type="Theme" id=3]
+[ext_resource path="res://Resources/Textures/Kinematic/key.png" type="Texture" id=4]
+
+[sub_resource type="Shader" id=14]
+code = "shader_type canvas_item;
+
+uniform vec4 color : hint_color = vec4(1.0);
+uniform float width : hint_range(0, 10) = 1.0;
+uniform int pattern : hint_range(0, 2) = 0; // diamond, circle, square
+uniform bool inside = false;
+uniform bool add_margins = true; // only useful when inside is false
+
+void vertex() {
+	if (add_margins) {
+		VERTEX += (UV * 2.0 - 1.0) * width;
+	}
+}
+
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture) {
+	for (float i = -ceil(width); i <= ceil(width); i++) {
+		float x = abs(i) > width ? width * sign(i) : i;
+		float offset;
+		
+		if (pattern == 0) {
+			offset = width - abs(x);
+		} else if (pattern == 1) {
+			offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+		} else if (pattern == 2) {
+			offset = width;
+		}
+		
+		for (float j = -ceil(offset); j <= ceil(offset); j++) {
+			float y = abs(j) > offset ? offset * sign(j) : j;
+			vec2 xy = uv + texture_pixel_size * vec2(x, y);
+			
+			if ((xy != clamp(xy, vec2(0.0), vec2(1.0)) || texture(texture, xy).a == 0.0) == inside) {
+				return true;
+			}
+		}
+	}
+	
+	return false;
+}
+
+void fragment() {
+	vec2 uv = UV;
+	
+	if (add_margins) {
+		vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0));
+		
+		uv = (uv - texture_pixel_size * width) * TEXTURE_PIXEL_SIZE / texture_pixel_size;
+		
+		if (uv != clamp(uv, vec2(0.0), vec2(1.0))) {
+			COLOR.a = 0.0;
+		} else {
+			COLOR = texture(TEXTURE, uv);
+		}
+	} else {
+		COLOR = texture(TEXTURE, uv);
+	}
+	
+	if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, TEXTURE)) {
+		COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb, color.a) : color.rgb;
+		COLOR.a += (1.0 - COLOR.a) * color.a;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = SubResource( 14 )
+shader_param/color = Color( 1, 1, 1, 1 )
+shader_param/width = 1.0
+shader_param/pattern = 0
+shader_param/inside = false
+shader_param/add_margins = false
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 8, 8 )
+
+[sub_resource type="RectangleShape2D" id=16]
+
+[node name="Key" type="RigidBody2D"]
+position = Vector2( 1029.08, -392.111 )
+z_index = 1
+collision_layer = 8
+collision_mask = 14
+gravity_scale = 0.0
+linear_damp = 5.0
+angular_damp = 5.0
+script = ExtResource( 2 )
+
+[node name="Label" type="Node2D" parent="."]
+modulate = Color( 0.780392, 1, 0, 0 )
+position = Vector2( 0, -5.25 )
+scale = Vector2( 0.45, 0.45 )
+z_index = 2
+
+[node name="Label2" type="Label" parent="Label"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -70.0
+margin_top = -54.0
+margin_right = 70.0
+theme = ExtResource( 3 )
+custom_fonts/font = ExtResource( 1 )
+text = "press G to pick up"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 15 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, -10 )
+
+[node name="ItemCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -9.99104 )
+shape = SubResource( 5 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 0, -5.26099 )
+collision_layer = 8
+collision_mask = 3
+
+[node name="Trigger" type="CollisionShape2D" parent="Area2D"]
+visible = false
+scale = Vector2( 2, 2 )
+shape = SubResource( 16 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_Area2D_mouse_exited"]

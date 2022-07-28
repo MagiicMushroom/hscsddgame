@@ -1,0 +1,30 @@
+[gd_resource type="AnimationNodeBlendTree" load_steps=6 format=2]
+
+[sub_resource type="AnimationNodeOneShot" id=1]
+
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "AttackLeft"
+
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "AttackRight"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=6]
+blend_point_0/node = SubResource( 7 )
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource( 8 )
+blend_point_1/pos = -1.0
+value_label = "AttackDirection"
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "Stop"
+
+[resource]
+graph_offset = Vector2( -126, 159.5 )
+nodes/Attack/node = SubResource( 1 )
+nodes/Attack/position = Vector2( 100, -20 )
+nodes/AttackAnim/node = SubResource( 6 )
+nodes/AttackAnim/position = Vector2( 100, 160 )
+nodes/Idle/node = SubResource( 3 )
+nodes/Idle/position = Vector2( -240, -100 )
+nodes/output/position = Vector2( 280, -20 )
+node_connections = [ "output", 0, "Attack", "Attack", 0, "Idle", "Attack", 1, "AttackAnim" ]

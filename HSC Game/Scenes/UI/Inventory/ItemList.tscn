@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Resources/Shaders/MainTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Scenes/UI/Inventory/ItemList.gd" type="Script" id=2]
+[ext_resource path="res://Resources/Shaders/Particles/BigDust.png" type="Texture" id=3]
+
+[node name="ItemList" type="ItemList"]
+margin_right = 318.0
+margin_bottom = 380.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+items = [ "Test1", null, false, "Test2", null, true, "Test3", ExtResource( 3 ), false, "Test4", ExtResource( 3 ), true ]
+auto_height = true
+max_columns = 2
+same_column_width = true
+fixed_icon_size = Vector2( 64, 64 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

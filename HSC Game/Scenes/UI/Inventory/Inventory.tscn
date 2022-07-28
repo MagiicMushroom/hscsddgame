@@ -1,0 +1,241 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scenes/UI/Inventory/InventoryGrid.gd" type="Script" id=1]
+[ext_resource path="res://Resources/Shaders/StyleBoxes/ButtonDefault.tres" type="StyleBox" id=2]
+[ext_resource path="res://Resources/Shaders/StyleBoxes/ItemList.tres" type="StyleBox" id=3]
+[ext_resource path="res://Resources/Shaders/MainTheme.tres" type="Theme" id=4]
+[ext_resource path="res://Scenes/UI/Inventory/ItemSlot.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/UI/Inventory/WeaponSlot.gd" type="Script" id=6]
+[ext_resource path="res://Resources/Fonts/Font2.tres" type="DynamicFont" id=7]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.141176, 0.141176, 0.141176, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 10
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+shadow_color = Color( 0, 0, 0, 0 )
+shadow_size = 3
+shadow_offset = Vector2( -3, 3 )
+
+[sub_resource type="StyleBoxLine" id=3]
+color = Color( 0, 0, 0, 0 )
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 10
+
+[sub_resource type="StyleBoxLine" id=1]
+color = Color( 0, 0, 0, 0 )
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 10
+
+[node name="Inventory" type="Panel"]
+light_mask = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+theme = ExtResource( 4 )
+custom_styles/panel = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_right = 1940.0
+margin_bottom = 1060.0
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
+margin_right = 961.0
+margin_bottom = 1060.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = ExtResource( 3 )
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/PanelContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 956.0
+margin_bottom = 1055.0
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/PanelContainer/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="Panel" parent="MarginContainer/HBoxContainer/PanelContainer/Control/MarginContainer"]
+margin_right = 911.0
+margin_bottom = 1010.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 2 )
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/HBoxContainer/PanelContainer/Control/MarginContainer/ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/PanelContainer/Control/MarginContainer/ColorRect/CenterContainer"]
+margin_left = 261.0
+margin_top = 290.0
+margin_right = 649.0
+margin_bottom = 720.0
+rect_min_size = Vector2( 388, 430 )
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/PanelContainer/Control/MarginContainer/ColorRect/CenterContainer/ScrollContainer"]
+margin_right = 388.0
+margin_bottom = 430.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+columns = 6
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer"]
+margin_left = 965.0
+margin_right = 975.0
+margin_bottom = 1060.0
+custom_constants/separation = 10
+custom_styles/separator = SubResource( 3 )
+
+[node name="VSplitContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_left = 979.0
+margin_right = 1940.0
+margin_bottom = 1060.0
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/VSplitContainer"]
+margin_right = 961.0
+margin_bottom = 521.0
+focus_mode = 2
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VSplitContainer/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainWeapon" parent="MarginContainer/HBoxContainer/VSplitContainer/Panel" instance=ExtResource( 5 )]
+anchor_left = 0.343
+anchor_top = 0.5
+anchor_right = 0.343
+anchor_bottom = 0.5
+margin_left = -31.623
+margin_top = -32.0
+margin_right = 32.377
+margin_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VSplitContainer/Panel/MainWeapon"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -77.5
+margin_top = -68.1937
+margin_right = 78.5
+margin_bottom = -34.1937
+custom_fonts/font = ExtResource( 7 )
+text = "Main weapon"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OffhandWeapon" parent="MarginContainer/HBoxContainer/VSplitContainer/Panel" instance=ExtResource( 5 )]
+anchor_left = 0.656
+anchor_top = 0.5
+anchor_right = 0.656
+anchor_bottom = 0.5
+margin_left = -32.416
+margin_top = -32.0
+margin_right = 31.584
+margin_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( 19.939, -13.054 )
+script = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VSplitContainer/Panel/OffhandWeapon"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.5
+margin_top = 54.5
+margin_right = 100.5
+margin_bottom = 78.5
+custom_fonts/font = ExtResource( 7 )
+text = "Offhand weapon"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/VSplitContainer"]
+margin_top = 525.0
+margin_right = 961.0
+margin_bottom = 535.0
+mouse_filter = 1
+custom_constants/separation = 10
+custom_styles/separator = SubResource( 1 )
+
+[node name="Panel2" type="Panel" parent="MarginContainer/HBoxContainer/VSplitContainer"]
+margin_top = 539.0
+margin_right = 961.0
+margin_bottom = 1060.0
+focus_mode = 2
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = ExtResource( 3 )
+
+[connection signal="mouse_exited" from="MarginContainer/HBoxContainer/PanelContainer/Control/MarginContainer/ColorRect/CenterContainer/ScrollContainer/GridContainer" to="MarginContainer/HBoxContainer/PanelContainer/Control/MarginContainer/ColorRect/CenterContainer/ScrollContainer/GridContainer" method="_on_GridContainer_mouse_exited"]

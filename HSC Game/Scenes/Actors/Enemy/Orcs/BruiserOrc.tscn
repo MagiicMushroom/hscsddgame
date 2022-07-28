@@ -1,0 +1,243 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scenes/Actors/Enemy/Orcs/OrcAnimations.tres" type="AnimationNodeBlendTree" id=1]
+[ext_resource path="res://Scenes/Actors/Enemy/BasicEnemyAI.gd" type="Script" id=2]
+[ext_resource path="res://Resources/Textures/Kinematic/Orcs/BruiserOrc.tres" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 24, 12 )
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 901.274
+
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 76.6476
+height = 13.6362
+
+[sub_resource type="Animation" id=8]
+resource_name = "AttackLeft"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 6.9644, 0.5, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -20.0, -10.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "AttackRight"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 6.9644, 0.5, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 20.0, 10.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "Die"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -32 ), Vector2( 0, -30 ), Vector2( 0, -37 ), Vector2( 0, -35 ), Vector2( 0, -27 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:rotation_degrees")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -37.4, -70.0, -90.0, -130.0 ]
+}
+
+[sub_resource type="Animation" id=11]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("WallCollide:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -10 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -30 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "Stop"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -30 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WallCollide:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -10 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "Walk"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("WallCollide:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, -2, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -12 ), Vector2( 0, -15 ), Vector2( 0, -17 ), Vector2( 0, -15 ), Vector2( 0, -12 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -32 ), Vector2( 0, -35 ), Vector2( 0, -37 ), Vector2( 0, -35 ), Vector2( 0, -32 ) ]
+}
+
+[node name="BruiserOrc" type="KinematicBody2D" groups=["enemy"]]
+light_mask = 4
+scale = Vector2( 0.3, 0.3 )
+z_index = 1
+collision_layer = 4
+collision_mask = 23
+script = ExtResource( 2 )
+maxspeed = 200
+mass = 2.0
+attackdelay = 1
+attackdamage = 20
+maxhealth = 215
+knockback = 2
+patrolrefreshtime = 5
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -30 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 3 )
+region_rect = Rect2( 32, 160, 16, 16 )
+region_filter_clip = true
+
+[node name="WallCollide" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -10 )
+shape = SubResource( 2 )
+
+[node name="Node" type="Node" parent="."]
+
+[node name="LineOfSight" type="RayCast2D" parent="."]
+position = Vector2( 0, -32 )
+enabled = true
+cast_to = Vector2( 0, 0 )
+collision_mask = 66
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="PlayerCheck" type="Area2D" parent="."]
+visible = false
+position = Vector2( 0, -32 )
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCheck"]
+shape = SubResource( 6 )
+
+[node name="Area2D" type="Area2D" parent="PlayerCheck"]
+
+[node name="AttackZone" type="CollisionShape2D" parent="PlayerCheck/Area2D"]
+position = Vector2( -60, 0 )
+shape = SubResource( 7 )
+
+[node name="Center" type="Node2D" parent="."]
+position = Vector2( 0, -32 )
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2( 0, -32 )
+z_index = 2
+points = PoolVector2Array( 0, 0, 0, 0 )
+width = 2.0
+default_color = Color( 1, 0, 0, 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = ExtResource( 1 )
+anim_player = NodePath("AnimationPlayer")
+active = true
+parameters/Attack/active = false
+parameters/AttackAnim/blend_position = -1.0
+parameters/Walk/add_amount = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree"]
+root_node = NodePath("../..")
+anims/AttackLeft = SubResource( 8 )
+anims/AttackRight = SubResource( 9 )
+anims/Die = SubResource( 10 )
+anims/RESET = SubResource( 11 )
+anims/Stop = SubResource( 12 )
+anims/Walk = SubResource( 13 )
+
+[connection signal="body_entered" from="PlayerCheck" to="." method="_on_PlayerCheck_body_entered"]
+[connection signal="body_exited" from="PlayerCheck" to="." method="_on_PlayerCheck_body_exited"]
+[connection signal="body_entered" from="PlayerCheck/Area2D" to="." method="_on_AttackAble_entered"]
+[connection signal="body_exited" from="PlayerCheck/Area2D" to="." method="_on_AttackAble_exited"]

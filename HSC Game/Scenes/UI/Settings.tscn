@@ -1,0 +1,152 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Resources/Shaders/MainTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Resources/Fonts/Font2.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Scenes/UI/SettingsButton.gd" type="Script" id=3]
+[ext_resource path="res://Resources/Shaders/StyleBoxes/ButtonDefault.tres" type="StyleBox" id=4]
+
+[node name="Settings" type="Control"]
+anchor_left = 0.360352
+anchor_top = 0.166667
+anchor_right = 0.946289
+anchor_bottom = 0.833333
+mouse_filter = 1
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controlls" type="Control" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 25.0
+margin_right = -2.0
+margin_bottom = -2.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="TabContainer/Controlls"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+text = "THERE ARE NONE ):"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Video" type="Control" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 25.0
+margin_right = -2.0
+margin_bottom = -2.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/Video"]
+anchor_left = 0.0215915
+anchor_top = 0.0519476
+anchor_right = 0.418293
+anchor_bottom = 0.108225
+rect_pivot_offset = Vector2( 154, 54 )
+action_mode = 0
+text = "Show enemy aggro lines"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Panel" type="Panel" parent="TabContainer/Video"]
+anchor_left = 0.0215915
+anchor_top = 0.0519476
+anchor_right = 0.418293
+anchor_bottom = 0.108225
+margin_left = -1.90735e-06
+margin_top = 78.0
+margin_bottom = 78.0
+rect_pivot_offset = Vector2( 154, 54 )
+mouse_filter = 2
+custom_styles/panel = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="OptionButton" parent="TabContainer/Video/Panel"]
+anchor_left = 0.753
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -3.86179
+margin_right = 0.000305176
+margin_bottom = -0.000198364
+rect_pivot_offset = Vector2( 154, 54 )
+mouse_filter = 2
+text = "30"
+items = [ "30", null, false, 0, null, "60", null, false, 1, null, "120", null, false, 2, null, "144", null, false, 3, null, "244", null, false, 4, null, "69420", null, false, 5, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Video/Panel"]
+anchor_right = 0.669604
+anchor_bottom = 0.999995
+custom_styles/normal = ExtResource( 4 )
+text = "FPS Cap"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Other" type="Control" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 25.0
+margin_right = -2.0
+margin_bottom = -2.0
+mouse_filter = 1
+
+[node name="CheckBox" type="CheckBox" parent="TabContainer/Other"]
+anchor_left = 0.0215915
+anchor_top = 0.0519476
+anchor_right = 0.418293
+anchor_bottom = 0.108225
+rect_pivot_offset = Vector2( 154, 54 )
+action_mode = 0
+text = "God mode (for you Mrs Chen!)"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.621666
+anchor_top = 0.8975
+anchor_right = 0.963333
+anchor_bottom = 0.9575
+mouse_filter = 1
+custom_fonts/font = ExtResource( 2 )
+text = "Return to title"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[connection signal="visibility_changed" from="." to="Button" method="_on_Settings_visibility_changed"]
+[connection signal="mouse_entered" from="TabContainer" to="Button" method="_on_TabContainer_mouse_entered"]
+[connection signal="mouse_exited" from="TabContainer" to="Button" method="_on_TabContainer_mouse_exited"]
+[connection signal="button_down" from="Button" to="Button" method="_on_Button_button_down"]

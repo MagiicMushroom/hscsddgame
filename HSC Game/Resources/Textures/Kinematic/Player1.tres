@@ -1,0 +1,9 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=2]
+
+[sub_resource type="StreamTexture" id=1]
+resource_name = "DungeonTileset"
+load_path = "res://.import/DungeonTileset.png-06bfd9bb799488d1529f206f0e829ee0.stex"
+
+[resource]
+atlas = SubResource( 1 )
+region = Rect2( 160, 240, 16, 16 )

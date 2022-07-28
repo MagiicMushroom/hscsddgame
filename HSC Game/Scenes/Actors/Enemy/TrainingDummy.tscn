@@ -1,0 +1,88 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/Actors/Enemy/BasicEnemyAI.gd" type="Script" id=1]
+[ext_resource path="res://Resources/Textures/Kinematic/TrainingDummy.tres" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 12, 2 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("WallCollide:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -10 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("EnemySprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -30 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Walk"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("WallCollide:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, -2, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -12 ), Vector2( 0, -15 ), Vector2( 0, -17 ), Vector2( 0, -15 ), Vector2( 0, -12 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("EnemySprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -32 ), Vector2( 0, -35 ), Vector2( 0, -37 ), Vector2( 0, -35 ), Vector2( 0, -32 ) ]
+}
+
+[node name="KinematicBody2D" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource( 1 )
+maxspeed = 150
+
+[node name="EnemySprite" type="Sprite" parent="."]
+position = Vector2( 0, -30 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_rect = Rect2( 32, 160, 16, 16 )
+region_filter_clip = true
+
+[node name="WallCollide" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -10 )
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Walk"
+anims/RESET = SubResource( 4 )
+anims/Walk = SubResource( 5 )
+
+[node name="Center" type="Node2D" parent="."]
+position = Vector2( 0, -32 )

@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Resources/Shaders/StyleBoxes/ItemList.tres" type="StyleBox" id=1]
+[ext_resource path="res://Resources/Textures/GUI/Bars/ebg.png" type="Texture" id=2]
+[ext_resource path="res://Resources/Textures/GUI/Bars/label_EP.png" type="Texture" id=3]
+[ext_resource path="res://Resources/Textures/GUI/Bars/efill.png" type="Texture" id=4]
+
+[node name="Staminabar" type="HBoxContainer"]
+anchor_top = 0.0037037
+anchor_right = 0.257143
+anchor_bottom = 0.0527778
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 70.0
+margin_bottom = 53.0
+rect_min_size = Vector2( 70, 53 )
+size_flags_horizontal = 3
+custom_styles/panel = ExtResource( 1 )
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -58.6465
+margin_top = -0.471931
+margin_right = -8.64648
+margin_bottom = -0.471931
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+margin_left = 74.0
+margin_right = 322.0
+margin_bottom = 53.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="."]
+margin_left = 326.0
+margin_right = 504.0
+margin_bottom = 53.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.47
